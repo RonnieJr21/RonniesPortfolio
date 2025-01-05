@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experience</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>Experience</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/Experience">Experience</a>
+        <a href="/Projects">Projects</a>
+    </nav>
+</header>
+<div class="card-container">
+    <!-- Collapsible Card 1 -->
+    <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+            <h3>Northrop Grumman - Systems Engineering Intern</h3>
+            <p class="card-summary">Contributed to DHS programs STARLITE and VADER...</p>
+        </div>
+        <div class="card-details">
+            <ul>
+                <li>Worked on the Acceptance Test Plan (ATP) for VADER.</li>
+                <li>Utilized Red Hat Linux in an embedded system.</li>
+                <li>Assisted in LRR integration and testing, gaining exposure to system components.</li>
+                <li>Created a virtual environment for students to simulate radar use in a controlled setting.</li>
+                <li>Used Hyper-V to set up servers dedicated to signal processing tasks.</li>
+                <li>Implemented PowerShell and Bash scripting for automation.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Collapsible Card 2 -->
+    <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+            <h3>ARSIEM Inc. - Lead Software Developer</h3>
+            <p class="card-summary">Developed web applications using Blazor framework...</p>
+        </div>
+        <div class="card-details">
+            <ul>
+                <li>Led a team of 6 interns implementing Agile/Sprint development cycles.</li>
+                <li>Integrated virtual machine provisioning into Moodle LMS through a custom plugin.</li>
+                <li>Handled network configurations, implemented security protocols, and managed load balancing.</li>
+                <li>Previously spearheaded the development of a proof-of-concept web app using the MERN stack.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Collapsible Card 3 -->
+    <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+            <h3>United States Air Force - Cyber Defensive Operations</h3>
+            <p class="card-summary">Responsible for technology assets of 6 squadrons within the USAF...</p>
+        </div>
+        <div class="card-details">
+            <ul>
+                <li>Information assurance risk management and vulnerability analysis.</li>
+                <li>Configured and deployed ESXi and virtual machines.</li>
+                <li>Automated account updates using PowerShell and SharePoint scripting.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+            <h3>United States Air Force - Tactical Aircraft Maintenance</h3>
+            <p class="card-summary">Journeyman Aircraft Maintainer.</p>
+        </div>
+        <div class="card-details">
+            <ul>
+                <li>Perform preflight, postflight, thru flight, phase, hourly and special inspections,
+                    as well as servicing, defueling, scheduled and unscheduled maintenance on A-10 Thunderbolt II aircraft.</li>
+                <li>Helped facilitate over 250,000 COVID-19 vaccine administrations to citizens of Baltimore, Maryland
+                    and the surrounding counties at the M&T Bank Stadium Test site in Baltimore, Maryland.
+                </li>
+                <li>Established and ran a COVID testing site in Bel Air, Maryland which contributed to over 6,400 administered COVID-19 tests.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>© 2025 Ronnie Huggins. All rights reserved.</p>
+</footer>
+<script>
+    function toggleCard(header) {
+        const card = header.parentElement;
+        card.classList.toggle("open");
+    }
+</script>
+</body>
+</html>

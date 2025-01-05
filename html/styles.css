@@ -1,0 +1,138 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background: url('pexels-creative-vix-9754.jpeg') no-repeat center center/cover;
+    color: #2e3d34; /* Darker gray-green for improved readability */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background: rgba(34, 49, 44, 0.7); /* Subtle smoky green */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle bottom border */
+}
+
+header h1 {
+    font-size: 2.3rem;
+    color: #a8d5ba; /* Muted mint green */
+    margin-bottom: 10px;
+}
+
+header nav a {
+    margin: 0 15px;
+    color: #a8d5ba; /* Mint green for links */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #66c966; /* Forest green hover */
+}
+
+/* Content */
+.content h1 {
+    font-size: 2.5rem;
+    color: #3a5349; /* Darker muted green for better readability */
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.6); /* Subtle light shadow for clarity */
+}
+
+.content h3 {
+    font-size: 1.8rem;
+    color: #4d635a; /* Softer dark green for subheadings */
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #374e44; /* Dark gray-green for body text */
+    margin-bottom: 15px;
+}
+
+/* Links in Body */
+.content a {
+    color: #66c966; /* Forest green for links */
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.content a:hover {
+    color: #a8d5ba; /* Mint green hover */
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card Styles */
+.card {
+    background: rgba(48, 63, 58, 0.9); /* Muted forest green */
+    color: #d8e3d5; /* Soft grayish green for text */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    overflow: hidden;
+    width: 280px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
+}
+
+.card-header {
+    background: rgba(66, 84, 76, 0.9); /* Slightly darker muted green */
+    color: #ffffff; /* Pure white for contrast */
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-details {
+    padding: 15px;
+    display: none; /* Hidden by default */
+    color: #d8e3d5; /* Soft grayish green */
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.4;
+}
+
+.card.open .card-details {
+    display: block; /* Show when the card is opened */
+}
+
+/* Footer */
+footer {
+    background: rgba(34, 49, 44, 0.7); /* Subtle smoky green */
+    color: #dfe7e2; /* Softer off-white */
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+}

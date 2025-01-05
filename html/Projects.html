@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Projects</h1>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/Experience">Experience</a>
+    <a href="/Projects">Projects</a>
+  </nav>
+</header>
+<div class="card-container">
+  <!-- Collapsible Card 1 -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h3>ARMv8 Raspberry Pi Kernel (Rust)</h3>
+      <p class="card-summary">Developing a kernel for ARMv8 architecture on the Raspberry Pi using Rust...</p>
+    </div>
+    <div class="card-details">
+      <ul>
+        <li>Developed from scratch using Rust, focusing on hardware interfacing and low-level control.</li>
+        <li>Implemented basic system functions and troubleshooting for hardware interaction.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Collapsible Card 2 -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h3>x86_64 Kernel Development (Rust)</h3>
+      <p class="card-summary">Building an x86_64 kernel written in Rust with VGA buffer support...</p>
+    </div>
+    <div class="card-details">
+      <ul>
+        <li>Designed to explore low-level architecture and direct hardware interaction.</li>
+        <li>Implemented functionality to display text using the VGA buffer.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Collapsible Card 3 -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h3>Unity Game Development</h3>
+      <p class="card-summary">Created a 3D game using Unity and C#, focusing on gameplay mechanics...</p>
+    </div>
+    <div class="card-details">
+      <ul>
+        <li>Integrated assets for optimal performance within a 3D environment.</li>
+        <li>Developed core gameplay mechanics and improved overall game performance.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Collapsible Card 4 -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h3>Blazor Application Development</h3>
+      <p class="card-summary">Built web applications using the Blazor framework...</p>
+    </div>
+    <div class="card-details">
+      <ul>
+        <li>Integrated Azure for resource provisioning and full-stack development.</li>
+        <li>Enhanced user experience with seamless integration of front-end and back-end.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Collapsible Card 5 -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h3>Arduino Ultrasonic Motion Sensor</h3>
+      <p class="card-summary">A distance detector with visible warnings...</p>
+    </div>
+    <div class="card-details">
+      <ul>
+        <li>Used an Arduino device to run a program with an ultrasonic sensor to detect distances.</li>
+        <li>Connected LEDs to provide a visible indicator for the distance of objects in front of the sensor.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Collapsible Card 6 -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h3>Servo Motor</h3>
+      <p class="card-summary">Controlling a servo motor with buttons...</p>
+    </div>
+    <div class="card-details">
+      <ul>
+        <li>Wrote Arduino code to take input from two buttons to indicate the servo motor's spin direction.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>© 2025 Ronnie Huggins. All rights reserved.</p>
+</footer>
+<script>
+  function toggleCard(header) {
+    const card = header.parentElement;
+    card.classList.toggle("open");
+  }
+</script>
+</body>
+</html>
