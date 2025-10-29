@@ -1,107 +1,80 @@
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader, prelude::*};
 use std::net::{TcpListener, TcpStream};
 use std::fs;
 
 fn main() {
-    let listener = TcpListener::bind("0.0.0.0:7878").unwrap();
+    let listener = TcpListener::bind("127.0.0.1:7800").unwrap();
     for stream in listener.incoming() {
-        let _stream = stream.unwrap();
-    handle_connection(_stream);
+        let stream = stream.unwrap();
+        handle_connection(stream);
     }
 }
 
-enum Body {
-    Text(String),
-    Binary(Vec<u8>),
+
+
+fn handle_connection(mut stream: TcpStream){
+
+    let buf_reader: BufReader<&TcpStream> = BufReader::new(& stream);
+    let http_req : Vec<String> = buf_reader
+        .lines()
+        .map(|res| res.unwrap())
+        .take_while(|line| !line.is_empty())
+        .collect();
+
+    let req_line:Vec<_> = http_req.get(0).unwrap().split(" ").collect();
+    get_handler(req_line.get(0).unwrap(), req_line.get(1).unwrap(), stream);
 }
-struct Response {
-    status: String,
-    body: Body,
-    length: usize,
+//  format!("{}\r\nContent-Length: {}\r\nContent-Type: {}\r\n\r\n", res.status, res.length, res.content_type)
+fn get_handler(method:&str, route:&str, mut stream: TcpStream){
+    match (method, route) {
+        ("GET","/") => {Res::send_Hello(stream);}
+        ("GET", "/Projects") =>{Res::send_Projects(stream);}
+        ("GET", "/Experience") =>{Res::send_Experience(stream);}
+        ("GET", "/styles.css") =>{Res::send_CSS(stream);}
+        //("GET", "/Experience") =>{Res::send_Experience(stream);}
+        (_,_)=>{ Res::send_404(stream);}
+    }
+}
+fn post_handler(){}
+
+struct Res {
+    status:String,
+    body:String,
+    length:String,
     content_type: String,
+
 }
 
-fn handle_connection(mut stream: TcpStream) {
-    let res = request_handler(&mut stream);
+impl Res {
+    fn send_Hello(mut stream: TcpStream) {
+        let file =fs::read_to_string("html/Hello.html").unwrap();
+           let _ = stream.write_all(format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: text/html\r\n\r\n{}", file.len().to_string(), file).as_bytes());
+    }
 
-    let response = format!("{}\r\nContent-Length: {}\r\nContent-Type: {}\r\n\r\n", res.status, res.length, res.content_type);
-    stream.write_all(response.as_bytes()).unwrap();
-    println!("Response: {}", response);
-    match res.body {
-        Body::Text(text) => stream.write_all(text.as_bytes()).unwrap(),
-        Body::Binary(binary) => stream.write_all(&binary).unwrap(),    }
+     fn send_Projects(mut stream: TcpStream) {
+        let file =fs::read_to_string("html/Projects.html").unwrap();
+           let _ = stream.write_all(format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: text/html\r\n\r\n{}", file.len().to_string(), file).as_bytes());
+    }
+
+     fn send_Experience(mut stream: TcpStream) {
+        let file =fs::read_to_string("html/Experience.html").unwrap();
+           let _ = stream.write_all(format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: text/html\r\n\r\n{}", file.len().to_string(), file).as_bytes());
+    }
+
+    fn send_CSS(mut stream: TcpStream) {
+        let file =fs::read_to_string("html/styles.css").unwrap();
+           let _ = stream.write_all(format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: text/css\r\n\r\n{}", file.len().to_string(), file).as_bytes());
+    }
+
+    fn send_BG(mut stream: TcpStream) {
+        let file =fs::read_to_string("html/black-bg-png").unwrap();
+           let _ = stream.write_all(format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: image/png\r\n\r\n{}", file.len().to_string(), file).as_bytes());
+    }
+
+     fn send_404(mut stream: TcpStream) {
+        let file =fs::read_to_string("html/404.html").unwrap();
+           let _ = stream.write_all(format!("HTTP/1.1 404 OK\r\nContent-Length: {}\r\nContent-Type: text/html\r\n\r\n{}", file.len().to_string(), file).as_bytes());
+    }
+
 }
 
-fn request_handler(stream: &TcpStream) -> Response {
-
-    let reader = BufReader::new(stream);
-    let request_line = match reader.lines().next() {
-        Some(Ok(line)) => line,
-        _ => return Response {
-            status: "HTTP/1.1 400 Bad Request".to_string(),
-            body: Body::Text("Bad Request".to_string()),
-            length: "Bad Request".len(),
-            content_type: "text/plain".to_string(),
-        },
-    };    let res = match request_line.as_str() {
-
-        "GET /styles.css HTTP/1.1" => {
-            let body = fs::read_to_string("html/styles.css").unwrap_or_else(|_| "File not found".to_string());
-            Response {
-                status: "HTTP/1.1 200 OK".to_string(),
-                length: body.len(),
-                body: Body::Text(body),
-                content_type: "text/css".to_string(),
-
-            }
-        }
-        "GET /black-bg.png HTTP/1.1" => {
-            let path = "html/black-bg.png";
-            eprintln!("Serving file: {}", path);
-            let body = fs::read(path).unwrap_or_else(|_| Vec::new());
-            Response {
-                status: "HTTP/1.1 200 OK".to_string(),
-                length: body.len(),
-                body: Body::Binary(body),
-                content_type: "image/png".to_string(),
-            }
-}
-        "GET / HTTP/1.1" => {
-            let body = fs::read_to_string("html/Hello.html").unwrap_or_else(|_| "File not found".to_string());
-            Response {
-                status: "HTTP/1.1 200 OK".to_string(),
-                length: body.len(),
-                body: Body::Text(body),
-                content_type: "text/html".to_string(),
-            }
-        }
-        "GET /Projects HTTP/1.1" => {
-            let body = fs::read_to_string("html/Projects.html").unwrap_or_else(|_| "File not found".to_string());
-            Response {
-                status: "HTTP/1.1 200 OK".to_string(),
-                length: body.len(),
-                body: Body::Text(body),
-                content_type: "text/html".to_string(),
-            }
-        }
-        "GET /Experience HTTP/1.1" => {
-            let body = fs::read_to_string("html/Experience.html").unwrap_or_else(|_| "File not found".to_string());
-            Response {
-                status: "HTTP/1.1 200 OK".to_string(),
-                length: body.len(),
-                body: Body::Text(body),
-                content_type: "text/html".to_string(),
-            }
-        }
-        _ => {
-            let body = fs::read_to_string("html/404.html").unwrap_or_else(|_| "File not found".to_string());
-            Response {
-                status: "HTTP/1.1 404 NOT FOUND".to_string(),
-                length: body.len(),
-                body: Body::Text(body),
-                content_type: "text/html".to_string(),
-            }
-        }
-    };
-    res
-}
