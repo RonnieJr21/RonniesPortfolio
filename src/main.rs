@@ -55,17 +55,17 @@ fn request_handler(stream: &TcpStream) -> Response {
 
             }
         }
-        "GET /pexels-creative-vix-9754.jpeg HTTP/1.1" => {
-            let path = "html/pexels-creative-vix-9754.jpeg";
-            eprintln!("Serving file: {}", path); // Debug log
+        "GET /black-bg.png HTTP/1.1" => {
+            let path = "html/black-bg.png";
+            eprintln!("Serving file: {}", path);
             let body = fs::read(path).unwrap_or_else(|_| Vec::new());
             Response {
                 status: "HTTP/1.1 200 OK".to_string(),
                 length: body.len(),
                 body: Body::Binary(body),
-                content_type: "image/jpeg".to_string(),
+                content_type: "image/png".to_string(),
             }
-        }
+}
         "GET / HTTP/1.1" => {
             let body = fs::read_to_string("html/Hello.html").unwrap_or_else(|_| "File not found".to_string());
             Response {
